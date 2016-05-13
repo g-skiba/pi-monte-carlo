@@ -1,0 +1,10 @@
+akka cluster - jeden główny aktor zbierający wyniki (persystencja mongoDB? replicated?)
+akka - workery liczący ileś punktów
+volunteer computing?
+następne spotkanie: 12.05 - konsultacje (17?):
+	pokazać coś działającego
+	założyć repo, podesłać linka
+	zaczniemy od frontendu, liczenie np w osobnym wątku
+	nie ma obowiązku przychodzenia całości zespołu
+2. spotkanie - akka
+3. cluster + mongo
