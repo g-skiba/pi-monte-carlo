@@ -1,11 +1,12 @@
 package pl.edu.agh.sius.jetty
 
+import akka.actor.ActorRef
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.gzip.GzipHandler
 import org.eclipse.jetty.server.session.SessionHandler
 import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler, ServletHolder}
 
-class ApplicationServer(val port: Int, resourceBase: String) {
+class ApplicationServer(val port: Int, resourceBase: String, piMaster: ActorRef) {
   private val server = new Server(port)
   private val contextHandler = new ServletContextHandler
 
@@ -28,9 +29,10 @@ class ApplicationServer(val port: Int, resourceBase: String) {
   private val atmosphereHolder = {
     import io.udash.rpc._
     import pl.edu.agh.sius.rpc._
-    import scala.concurrent.ExecutionContext.Implicits.global
 
-    val config = new DefaultAtmosphereServiceConfig[MainServerRPC]((clientId) => new DefaultExposesServerRPC[MainServerRPC](new ExposedRpcInterfaces()(clientId)))
+    val config = new DefaultAtmosphereServiceConfig[MainServerRPC]((clientId) =>
+      new DefaultExposesServerRPC[MainServerRPC](new ExposedRpcInterfaces(piMaster)(clientId))
+    )
     val framework = new DefaultAtmosphereFramework(config)
 
     //Disabling all files scan during service auto-configuration,

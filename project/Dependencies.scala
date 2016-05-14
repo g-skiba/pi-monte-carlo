@@ -8,6 +8,7 @@ object Dependencies extends Build {
   val jettyVersion = "9.3.8.v20160314"
   val groovyVersion = "2.4.6"
   val scalacssVerion = "0.4.1"
+  val akkaVersion = "2.4.4"
 
   val crossDeps = Def.setting(Seq[ModuleID](
     "io.udash" %%% "udash-core-shared" % udashVersion,
@@ -30,6 +31,7 @@ object Dependencies extends Build {
     "org.eclipse.jetty" % "jetty-servlet" % jettyVersion,
     "io.udash" %% "udash-rpc-backend" % udashVersion,
     "org.eclipse.jetty.websocket" % "websocket-server" % jettyVersion,
-    "org.codehaus.groovy" % "groovy-all" % groovyVersion
+    "org.codehaus.groovy" % "groovy-all" % groovyVersion,
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion
   ))
 }
