@@ -29,6 +29,7 @@ class ApplicationServer(val port: Int, resourceBase: String, piMaster: ActorRef)
   private val atmosphereHolder = {
     import io.udash.rpc._
     import pl.edu.agh.sius.rpc._
+    import scala.concurrent.ExecutionContext.Implicits.global
 
     val config = new DefaultAtmosphereServiceConfig[MainServerRPC]((clientId) =>
       new DefaultExposesServerRPC[MainServerRPC](new ExposedRpcInterfaces(piMaster)(clientId))
