@@ -1,6 +1,6 @@
 package pl.edu.agh.sius.services
 
-import akka.actor.{Actor, Props}
+import akka.actor.{Actor, ActorRef, Props}
 import pl.edu.agh.sius.MonteCarlo
 
 import scala.concurrent.duration.DurationInt
@@ -8,13 +8,13 @@ import scala.language.postfixOps
 
 
 object PiWorker {
-  def props(batchSize: Int): Props = Props(classOf[PiWorker], batchSize)
+  def props(piMaster: ActorRef, batchSize: Int): Props = Props(classOf[PiWorker], piMaster, batchSize)
 
   sealed trait Message
   case object Start extends Message
   case object ComputeBatch extends Message
 }
-class PiWorker(batchSize: Int) extends Actor {
+class PiWorker(piMaster: ActorRef, batchSize: Int) extends Actor {
   import PiWorker._
   import context.dispatcher
 
@@ -22,6 +22,6 @@ class PiWorker(batchSize: Int) extends Actor {
     case Start =>
       context.system.scheduler.schedule(1000 millis, 1000 millis, self, ComputeBatch)
     case ComputeBatch =>
-      context.parent ! PiMaster.UpdateValues(batchSize, MonteCarlo.pi(batchSize))
+      piMaster ! PiMaster.UpdateValues(batchSize, MonteCarlo.pi(batchSize))
   }
 }

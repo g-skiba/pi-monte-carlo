@@ -32,6 +32,8 @@ object Dependencies extends Build {
     "io.udash" %% "udash-rpc-backend" % udashVersion,
     "org.eclipse.jetty.websocket" % "websocket-server" % jettyVersion,
     "org.codehaus.groovy" % "groovy-all" % groovyVersion,
-    "com.typesafe.akka" %% "akka-actor" % akkaVersion
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion
   ))
 }

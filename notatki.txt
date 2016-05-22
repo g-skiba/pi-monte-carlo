@@ -8,3 +8,6 @@ następne spotkanie: 12.05 - konsultacje (17?):
 	nie ma obowiązku przychodzenia całości zespołu
 2. spotkanie - akka
 3. cluster + mongo
+
+2.06 17 ostatnie konsultacje - akka cluster + mongo
+będzie informacja o dokumentacji na moodlu
