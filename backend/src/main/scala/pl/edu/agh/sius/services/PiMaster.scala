@@ -1,10 +1,8 @@
 package pl.edu.agh.sius.services
 
-import akka.actor.{Actor, ActorRef, ActorSelection, Props}
-import io.udash.rpc.AllClients
-import pl.edu.agh.sius.rpc.ClientRPC
+import akka.actor.Props
+import akka.persistence.PersistentActor
 
-import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 object PiMaster {
@@ -13,19 +11,34 @@ object PiMaster {
   sealed trait Message
   case class UpdateValues(totalPoints: Int, pointsInCircle: Int) extends Message
   case object GetValues extends Message
+
+  sealed trait Event
+  case class UpdateValuesEvent(totalPoints: Int, pointsInCircle: Int) extends Event
 }
 
-class PiMaster() extends Actor{
+class PiMaster extends PersistentActor {
   import PiMaster._
+
+  override val persistenceId: String = "piMaster"
 
   private var totalPoints = 0
   private var pointsInsideCircle = 0
 
-  override def receive: Receive = {
+  override def receiveCommand: Receive = {
     case UpdateValues(addTotalPoints, addPointsInCircle) =>
-      totalPoints += addTotalPoints
-      pointsInsideCircle += addPointsInCircle
+      persist(UpdateValuesEvent(addTotalPoints, addPointsInCircle))(updateState)
     case GetValues =>
       sender() ! UpdateValues(totalPoints, pointsInsideCircle)
   }
+
+  def updateState(event: Event): Unit = event match {
+    case UpdateValuesEvent(addTotalPoints, addPointsInCircle) =>
+      totalPoints += addTotalPoints
+      pointsInsideCircle += addPointsInCircle
+  }
+
+  override def receiveRecover: Receive = {
+    case event: Event => updateState(event)
+  }
+
 }
