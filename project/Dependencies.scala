@@ -9,6 +9,8 @@ object Dependencies extends Build {
   val groovyVersion = "2.4.6"
   val scalacssVerion = "0.4.1"
   val akkaVersion = "2.4.4"
+  val akkaMongoVersion = "1.2.5"
+  val reactiveMongoVersion = "0.11.9"
 
   val crossDeps = Def.setting(Seq[ModuleID](
     "io.udash" %%% "udash-core-shared" % udashVersion,
@@ -36,7 +38,8 @@ object Dependencies extends Build {
     "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
     "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-    "org.iq80.leveldb" % "leveldb" % "0.7",
-    "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
+    "com.github.scullxbones" %% "akka-persistence-mongo-rxmongo" % akkaMongoVersion,
+    "org.reactivemongo" %% "reactivemongo" % reactiveMongoVersion exclude("com.typesafe.play", "play-iteratees_2.11"),
+    "com.typesafe.play" % "play-iteratees_2.11" % "2.3.10"
   ))
 }
