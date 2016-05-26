@@ -6,7 +6,7 @@ import scala.concurrent.Future
 
 @RPC
 trait MainServerRPC {
-  def addPoints(totalPoints: Double, pointsInsideCircle: Double): Unit
+  def addPoints(totalPoints: Int, pointsInsideCircle: Int): Unit
 }
 
        

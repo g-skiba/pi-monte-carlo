@@ -6,7 +6,7 @@ import pl.edu.agh.sius.services.PiMaster
 
 class ExposedRpcInterfaces(piMaster: ActorRef)(implicit clientId: ClientId) extends MainServerRPC {
 
-  override def addPoints(totalPoints: Double, pointsInsideCircle: Double): Unit = {
+  override def addPoints(totalPoints: Int, pointsInsideCircle: Int): Unit = {
     piMaster ! PiMaster.UpdateValues(totalPoints, pointsInsideCircle)
   }
 }
