@@ -4,6 +4,6 @@ import com.avsystem.commons.rpc.RPC
 
 @RPC
 trait MainClientRPC {
-  def update(totalPoints: Int, pointsInCircle: Int): Unit
+  def update(totalPoints: Double, pointsInCircle: Double): Unit
 }
        

@@ -10,8 +10,8 @@ import pl.edu.agh.sius.services.PiService
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait PiModel {
-  def totalPoints: Int
-  def pointsInCircle: Int
+  def totalPoints: Double
+  def pointsInCircle: Double
 }
 
 trait ResultsModel {
@@ -61,7 +61,7 @@ class IndexPresenter(model: ModelProperty[ResultsModel]) extends Presenter[Index
     points.set(points.get + count)
   }
 
-  def pi(totalPoints: Int, pointsInCircle: Int): Double =
+  def pi(totalPoints: Double, pointsInCircle: Double): Double =
     4.0 * pointsInCircle / totalPoints
 }
 

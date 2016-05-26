@@ -9,11 +9,11 @@ object PiMaster {
   def props(): Props = Props(classOf[PiMaster])
 
   sealed trait Message
-  case class UpdateValues(totalPoints: Int, pointsInCircle: Int) extends Message
+  case class UpdateValues(totalPoints: Double, pointsInCircle: Double) extends Message
   case object GetValues extends Message
 
   sealed trait Event
-  case class UpdateValuesEvent(totalPoints: Int, pointsInCircle: Int) extends Event
+  case class UpdateValuesEvent(totalPoints: Double, pointsInCircle: Double) extends Event
 }
 
 class PiMaster extends PersistentActor {
@@ -21,8 +21,8 @@ class PiMaster extends PersistentActor {
 
   override val persistenceId: String = "piMaster"
 
-  private var totalPoints = 0
-  private var pointsInsideCircle = 0
+  private var totalPoints: Double = 0
+  private var pointsInsideCircle: Double = 0
 
   override def receiveCommand: Receive = {
     case UpdateValues(addTotalPoints, addPointsInCircle) =>
